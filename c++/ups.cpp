@@ -1,6 +1,10 @@
 #include <WinSock2.h>
-#include <gdcharconv.h>
+#include <Windows.h>
+#include "StrUtil.h"
 #include "ups.h"
+
+#pragma comment(lib, "Shlwapi.lib")
+#pragma comment(lib, "ws2_32.lib")
 
 Ups::Ups()
 {
@@ -22,7 +26,7 @@ Ups::~Ups()
 
 string Ups::GetConnectUnique(const string &ip, unsigned short uPort, const string &strMark)
 {
-    return fmt("%hs_%d-%d_%hs", ip.c_str(), uPort, m_uLocalPort, strMark.c_str());
+    return FormatA("%hs_%d-%d_%hs", ip.c_str(), uPort, m_uLocalPort, strMark.c_str());
 }
 
 bool Ups::InsertRecvInterval(PacketRecvDesc desc, vector<PacketRecvDesc> &descSet)
@@ -274,7 +278,7 @@ bool Ups::OnRecvUdpData(const char *addr, unsigned short uPort, const char *pDat
                 map<string, PackageRecvCache>::iterator it;
                 if (m_recvCache.end() != (it = m_recvCache.find(strUnique)))
                 {
-                    string dbg = fmt("recv data3:%d\n", header.m_uSerial + it->second.m_iSerialGrow);
+                    string dbg = FormatA("recv data3:%d\n", header.m_uSerial + it->second.m_iSerialGrow);
                     OutputDebugStringA(dbg.c_str());
                 }
                 */

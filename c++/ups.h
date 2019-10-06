@@ -9,7 +9,6 @@
 */
 #ifndef UPS_SAFE_H_H_
 #define UPS_SAFE_H_H_
-#include <WinSock2.h>
 #include <Windows.h>
 #include <vector>
 #include <list>
